@@ -1,0 +1,602 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #1c1818; /* Fondo oscuro general de tu Figma */
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+
+.main-header {
+    background-color: #2b2626;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    border-bottom: 1px solid #3d3535;
+    height: 70px; /* Altura fija para el header */
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: #555;
+    border-radius: 8px;
+    /* NUEVO: Alinea y centra la imagen si tiene espacios */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Corta cualquier excedente de la imagen si tuviera esquinas rectas */
+}
+
+/* NUEVO BLOQUE: Controla el comportamiento de la imagen del logo */
+.avatar-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ajusta la imagen dentro del bloque sin deformarla */
+}
+
+.main-header h1 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.search-container {
+    position: relative;
+    width: 300px;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border-radius: 20px;
+    background-color: #3d3535;
+    color: white;
+    outline: none;
+    /* NUEVO: Borde base inicial sutil */
+    border: 1px solid #3d3535; 
+    /* NUEVO: Hace que el encendido y apagado del neón dure 0.3 segundos */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; 
+}
+
+/* EFECTO ENFOQUE: Ilumina la barra de búsqueda con un aura neón premium */
+.search-container input:focus {
+    background-color: #2b2626; /* Oscurece ligeramente el fondo para que resalte la luz */
+    border-color: #00f2fe;     /* El núcleo del neón: borde cian brillante */
+    
+    /* Capa 1: Resplandor interno sutil | Capa 2: Luz intensa cercana | Capa 3: Aura de luz dispersa */
+    box-shadow: inset 0 0 4px rgba(0, 242, 254, 0.2),
+                0 0 10px rgba(0, 242, 254, 0.4),
+                0 0 20px rgba(143, 0, 255, 0.2); 
+}
+
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+}
+
+
+.page-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr; 
+    min-height: calc(100vh - 70px);  
+}
+
+.sidebar-categories {
+    background-color: #231f1f;
+    padding: 25px;
+    border-right: 1px solid #3d3535;
+}
+
+.sidebar-categories h2 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-categories ul {
+    list-style: none;
+}
+
+.sidebar-categories li {
+    margin-bottom: 12px;
+}
+
+.sidebar-categories a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.sidebar-categories a:hover, 
+.sidebar-categories a.active {
+    background-color: #3d3535;
+    color: white;
+}
+
+/* ==========================================================================
+   5. MAIN (Cuadrícula de juegos)
+   ========================================================================== */
+.games-container {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    align-content: start;
+}
+
+.game-card {
+    background-color: #2b2626;
+    border-radius: 12px;
+    overflow: hidden; /* ¡CRUCIAL! Corta los bordes para que la imagen no se salga al hacer zoom */
+    position: relative;
+    border: 1px solid #3d3535;
+    animation: card-fade-in 0.4s ease-out forwards;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover de la tarjeta: eleva el bloque y genera el resplandor neón gamer */
+.game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.25), 0 0 40px rgba(143, 0, 255, 0.15);
+    border-color: #555;
+}
+
+.game-image {
+    width: 100%;
+    height: 150px;
+    background-color: #332d2d; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    /* Forzamos a que la propiedad 'transform' afecte solo a la imagen con transiciones lentas */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+/* Al pasar el cursor sobre LA TARJETA, LA IMAGEN interna hace el zoom sutil */
+.game-card:hover .game-image {
+    transform: scale(1.04) !important; /* El !important obliga al navegador a saltarse bloqueos de memoria */
+}
+
+.game-info {
+    padding: 15px;
+    background-color: #2b2626; /* Evita transparencias al mover elementos */
+    position: relative;
+    z-index: 2;
+}
+
+
+.game-info h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.game-info p {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+
+/* ==========================================================================
+   7. VENTANA FLOTANTE DEL JUEGO (MODAL)
+   ========================================================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Clase que activará JavaScript para mostrar la ventana */
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: #2b2626;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 12px;
+    border: 1px solid #3d3535;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.modal-header {
+    background-color: #231f1f;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #3d3535;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #ff4a4a;
+}
+
+.modal-body {
+    position: relative;
+    padding-top: 56.25%; /* Relación de aspecto 16:9 para la pantalla del juego */
+    background-color: #000;
+}
+
+.modal-body iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ==========================================================================
+   8. FORMULARIO DE APORTACIONES (AÑADIDO)
+   ========================================================================== */
+.add-game-box {
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #3d3535;
+}
+
+.add-game-box h3 {
+    font-size: 0.95rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+#add-game-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#add-game-form input[type="text"],
+#add-game-form input[type="url"],
+#add-game-form textarea,
+#add-game-form select {
+    width: 100%;
+    padding: 9px 12px;
+    background-color: #2b2626;
+    border: 1px solid #3d3535;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+#add-game-form textarea {
+    resize: none;
+    height: 60px;
+}
+
+#add-game-form input[type="file"] {
+    display: none;
+}
+
+.file-label {
+    display: block;
+    text-align: center;
+    background-color: #3d3535;
+    padding: 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background 0.2s;
+}
+
+.file-label:hover {
+    background-color: #4a4242;
+}
+
+#file-name-preview {
+    font-size: 0.75rem;
+    color: #aaa;
+    text-align: center;
+    display: block;
+    word-break: break-all;
+}
+
+.submit-btn {
+    background-color: #25a244;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #2dc653;
+}
+
+/* Botón flotante para eliminar tarjetas individuales */
+.delete-card-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(220, 53, 69, 0.85); /* Rojo semitransparente */
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.delete-card-btn:hover {
+    background-color: rgb(220, 53, 69);
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   9. INTERFAZ DE AYUDA Y ACCIONES DEL MODAL
+   ========================================================================== */
+.form-header-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.help-btn {
+    background: none;
+    border: none;
+    color: #25a244;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.help-btn:hover {
+    color: #2dc653;
+    text-decoration: underline;
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.action-icon-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.action-icon-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos específicos para la ventana del tutorial */
+.tutorial-content {
+    max-width: 600px;
+}
+
+.tutorial-body {
+    padding: 25px;
+    background-color: #2b2626;
+}
+
+.tutorial-list {
+    padding-left: 20px;
+    color: #ccc;
+}
+
+.tutorial-list li {
+    margin-bottom: 18px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.tutorial-list strong {
+    color: #fff;
+}
+
+.tutorial-list code {
+    background-color: #1c1818;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #2dc653;
+    font-family: monospace;
+}
+
+/* Botón flotante para eliminar tarjetas individuales */
+.delete-card-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(220, 53, 69, 0.85);
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.delete-card-btn:hover {
+    background-color: rgb(220, 53, 69);
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   10. CORRECCIÓN DEFINITIVA: ZOOM SUAVE Y SIN DEFORMACIONES
+   ========================================================================== */
+
+/* Animación de entrada suave para las tarjetas al filtrar */
+@keyframes card-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Redefinición limpia de la tarjeta */
+.game-card {
+    background-color: #2b2626;
+    border-radius: 12px;
+    overflow: hidden; /* Corta de forma estricta los bordes para el efecto ventana */
+    position: relative;
+    border: 1px solid #3d3535;
+    animation: card-fade-in 0.4s ease-out forwards;
+    /* Separamos las transiciones: solo animamos la elevación y el brillo de la tarjeta */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* Hover de la tarjeta: Brillo neón gamer sutil sin afectar la imagen interna */
+.game-card:hover {
+    transform: translateY(-4px); /* Elevación mínima y elegante */
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.2), 0 0 40px rgba(143, 0, 255, 0.1);
+    border-color: #555;
+}
+
+.game-image {
+    width: 100%;
+    height: 150px;
+    background-color: #332d2d;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
+    /* Activamos la transición suave aquí de forma directa */
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Al pasar el cursor sobre la tarjeta, la imagen hace el zoom elegante */
+.game-card:hover .game-image {
+    transform: scale(1.04);
+}
+
+
+/* Asegurar el fondo sólido para que el texto no se mueva ni se deforme */
+.game-info {
+    padding: 15px;
+    background-color: #2b2626;
+    position: relative;
+    z-index: 2;
+}
+
+/* ESTILOS FIJOS PARA EL FORMULARIO DESPLEGABLE */
+.toggle-form-btn {
+    width: 100%;
+    background-color: #2b2626;
+    border: 1px solid #3d3535;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.toggle-form-btn:hover {
+    background-color: #3d3535;
+    border-color: #25a244;
+}
+
+.toggle-form-btn .arrow-icon {
+    font-size: 0.7rem;
+    transition: transform 0.3s ease;
+    color: #aaa;
+}
+
+.toggle-form-btn.active .arrow-icon {
+    transform: rotate(180deg);
+    color: #25a244;
+}
+
+.add-game-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), margin-top 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.add-game-panel.open {
+    max-height: 500px;
+    margin-top: 15px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.form-header-box {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+

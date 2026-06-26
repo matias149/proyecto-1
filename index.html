@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launcher Games Program</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="logo-title">
+            <div class="avatar-placeholder">
+                <img src="../img/logo.png" alt="Logo Launcher Games" class="logo-img">
+            </div>
+            <h1>Launcher Games Program</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar juegos...">
+            <span class="search-icon">🔍</span>
+        </div>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="page-layout">
+
+        <!-- BARRA LATERAL -->
+        <aside class="sidebar-categories">
+            <h2>Categorías</h2>
+            <ul>
+                <li><a href="#" class="category-btn active" data-category="todos">Todos los juegos</a></li>
+                <li><a href="#" class="category-btn" data-category="accion">Acción</a></li>
+                <li><a href="#" class="category-btn" data-category="estrategia">Estrategia</a></li>
+                <li><a href="#" class="category-btn" data-category="arcade">Arcade</a></li>
+            </ul>
+
+            <!-- FORMULARIO PARA AÑADIR JUEGOS -->
+            <div class="add-game-box">
+                <!-- Botón principal para desplegar el formulario -->
+                <button type="button" id="toggle-form-btn" class="toggle-form-btn">
+                    <span>+ Añadir Juego</span>
+                    <span class="arrow-icon">▼</span>
+                </button>
+                
+                <!-- Contenedor animado que se ocultará y mostrará -->
+                <div id="add-game-panel" class="add-game-panel">
+                    <div class="form-header-box">
+                        <button type="button" id="open-tutorial-btn" class="help-btn">¿Cómo añadir? ❓</button>
+                    </div>
+                    
+                    <form id="add-game-form">
+                        <input type="text" id="new-title" placeholder="Título del juego" required>
+                        <textarea id="new-desc" placeholder="Descripción breve" required></textarea>
+                        
+                        <select id="new-category" required>
+                            <option value="" disabled selected>Elige categoría</option>
+                            <option value="accion">Acción</option>
+                            <option value="estrategia">Estrategia</option>
+                            <option value="arcade">Arcade</option>
+                        </select>
+
+                        <input type="url" id="new-url" placeholder="Enlace del juego (URL)" required>
+                        
+                        <label for="new-image" class="file-label">Subir Portada 📷</label>
+                        <input type="file" id="new-image" accept="image/*" required>
+                        <span id="file-name-preview">Ningún archivo seleccionado</span>
+
+                        <button type="submit" class="submit-btn">Publicar Juego</button>
+                    </form>
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- MAIN -->
+        <main class="games-container" id="games-container">
+            <!-- JavaScript inyectará las tarjetas aquí -->
+        </main>
+
+    </div>
+
+    <!-- VENTANA FLOTANTE PARA JUGAR -->
+    <div id="game-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-game-title">Nombre del Juego</h2>
+                <div class="modal-actions">
+                    <!-- Botón de pantalla completa -->
+                    <button id="fullscreen-btn" class="action-icon-btn" title="Pantalla completa">📺</button>
+                    <button id="close-modal-btn" class="close-btn">&times;</button>
+                </div>
+            </div>
+            <div class="modal-body" id="modal-body-container">
+                <iframe id="game-frame" src="" frameborder="0" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- VENTANA FLOTANTE DEL TUTORIAL (NUEVO) -->
+    <div id="tutorial-modal" class="modal-overlay">
+        <div class="modal-content tutorial-content">
+            <div class="modal-header">
+                <h2>Guía: ¿Cómo añadir juegos correctamente? 🚀</h2>
+                <button id="close-tutorial-btn" class="close-btn">&times;</button>
+            </div>
+            <div class="tutorial-body">
+                <ol class="tutorial-list">
+                    <li>
+                        <strong>Busca un portal compatible:</strong> Ingresa a páginas de distribución o desarrollo libre como <em>itch.io</em> o portales arcade abiertos.
+                    </li>
+                    <li>
+                        <strong>Encuentra la propiedad Embed:</strong> No copies la URL normal de la barra de navegación del sitio. Busca abajo o al lado del juego un botón que diga <strong>"Compartir"</strong>, <strong>"Embed Code"</strong> o <strong>"Código de inserción"</strong>.
+                    </li>
+                    <li>
+                        <strong>Copia la URL del iframe:</strong> Verás un código con la etiqueta <code>&lt;iframe src="..."&gt;</code>. Copia únicamente el enlace que se encuentra dentro de las comillas del parámetro <code>src</code> (suele incluir la palabra <em>/embed/</em> o <em>/embed-upload/</em>).
+                    </li>
+                    <li>
+                        <strong>Completa el formulario:</strong> Pega ese enlace en la casilla de URL, escribe el título, añade una descripción, elige su categoría, sube una foto bonita para la portada desde tu dispositivo y presiona <strong>Publicar Juego</strong>.
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascript/script.js"></script>
+</body>
+</html>
